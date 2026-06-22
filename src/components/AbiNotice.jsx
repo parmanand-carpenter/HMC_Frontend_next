@@ -1,5 +1,4 @@
-// Shown when the ABI JSON files are still empty.
-// Tells the developer/owner exactly what to paste to make the dApp live.
+
 export default function AbiNotice() {
   return (
     <div className="card abi-notice">
