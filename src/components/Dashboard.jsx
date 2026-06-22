@@ -48,7 +48,6 @@ export default function Dashboard({ data, lastUpdated, token, isConnected }) {
       <SalesTiers soldHMC={data.soldHMC} />
 
       <div className="dash-meta">
-        <span className="pill pill-on">Sell Fee: {data.sellFeePercent}%</span>
         {data.paused && <span className="pill pill-warn">Trading Paused</span>}
         {lastUpdated && (
           <span className="updated">

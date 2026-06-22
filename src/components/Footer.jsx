@@ -28,9 +28,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Contact</h4>
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-            {/* Social links — client to share final URLs */}
-            <a href="#" target="_blank" rel="noreferrer">Twitter / X</a>
-            <a href="#" target="_blank" rel="noreferrer">Telegram</a>
+            <a href="https://x.com/Halfmillioncoin" target="_blank" rel="noreferrer">Twitter / X · @Halfmillioncoin</a>
           </div>
 
           <div className="footer-col">
