@@ -37,18 +37,21 @@ export const NETWORKS = {
   },
 };
 
-export const ACTIVE_NETWORK_KEY = process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'mainnet' : 'sepolia';
+// Default to MAINNET. Only switch to Sepolia if explicitly set. This prevents
+// a missing env var (e.g. on a fresh Netlify deploy) from silently falling back
+// to the test network.
+export const ACTIVE_NETWORK_KEY = process.env.NEXT_PUBLIC_NETWORK === 'sepolia' ? 'sepolia' : 'mainnet';
 export const NETWORK = NETWORKS[ACTIVE_NETWORK_KEY];
 
-// ---- Addresses ----
+// ---- Addresses (defaults are the live MAINNET values) ----
 export const HMC_ADDRESS =
-  process.env.NEXT_PUBLIC_HMC_ADDRESS || '0x3E2AA743a3CfA5bbB05CEa6a82A3860E961a1ba3';
+  process.env.NEXT_PUBLIC_HMC_ADDRESS || '0x4cAd32c961d86cDD7225B3dD9DDF929140Be3b86';
 export const USDT_ADDRESS =
-  process.env.NEXT_PUBLIC_USDT_ADDRESS || '0x7D6681b73b9d522BB9af02da76dEa13cB6b14119';
+  process.env.NEXT_PUBLIC_USDT_ADDRESS || '0xdAC17F958D2ee523a2206206994597C13D831ec7';
 export const USDC_ADDRESS =
-  process.env.NEXT_PUBLIC_USDC_ADDRESS || '0x8be6FEee25A94d1248050BEC6AA973dB907A72ED';
+  process.env.NEXT_PUBLIC_USDC_ADDRESS || '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
 export const OWNER_ADDRESS =
-  process.env.NEXT_PUBLIC_OWNER_ADDRESS || '0x8e61872CB683b206B974A956242030637852eBB2';
+  process.env.NEXT_PUBLIC_OWNER_ADDRESS || '0xeccD20F79Df0103e3BA6A1E039D97B439872E7D0';
 
 export const SLIPPAGE_PERCENT = Number(process.env.NEXT_PUBLIC_SLIPPAGE_PERCENT || 2);
 
