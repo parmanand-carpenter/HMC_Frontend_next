@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/reserve-alert",
+      "schedule": "*/1 * * * *"
+    }
+  ]
+}

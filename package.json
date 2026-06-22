@@ -1,0 +1,23 @@
+{
+  "name": "halfmillioncoins-next",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Half Million Coins (HMC) - Web3 dApp (Next.js / Pages Router)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reown/appkit": "^1.8.21",
+    "@reown/appkit-adapter-ethers": "^1.8.21",
+    "buffer": "^6.0.3",
+    "ethers": "^6.13.4",
+    "next": "^14.2.15",
+    "nodemailer": "^6.9.15",
+    "process": "^0.11.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

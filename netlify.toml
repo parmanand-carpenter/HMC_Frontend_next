@@ -1,0 +1,10 @@
+# Netlify build config for the Next.js app.
+# In the Netlify UI, set "Base directory" to: next-app
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Official Next.js runtime — turns API routes into Netlify Functions, handles
+# SSR/routing automatically.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
