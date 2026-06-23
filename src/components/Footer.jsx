@@ -28,7 +28,7 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Contact</h4>
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-            <a href="https://x.com/Halfmillioncoin" target="_blank" rel="noreferrer">Twitter / X · @Halfmillioncoin</a>
+            <a href="https://x.com/Halfmillioncoin" target="_blank" rel="noreferrer">Twitter / X</a>
           </div>
 
           <div className="footer-col">

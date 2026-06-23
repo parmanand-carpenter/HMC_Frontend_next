@@ -363,6 +363,8 @@ p { margin: 0; line-height: 1.65; color: var(--text-dim); }
 
 /* Per-token sell liquidity ("available to receive") */
 .settings-liq-row { flex-wrap: wrap; }
+.sell-liq { margin: 4px 0 14px; }
+.sell-liq-label { display: block; color: var(--muted); font-size: 0.8rem; margin-bottom: 8px; }
 .liq-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .liq-chip {
   font-size: 0.8rem; padding: 4px 10px; border-radius: 999px;

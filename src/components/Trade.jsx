@@ -56,7 +56,7 @@ export default function Trade() {
 
             <div className="trade-grid">
               <BuyCard token={token} data={data} refresh={refresh} setTx={setTx} />
-              <SellCard token={token} data={data} refresh={refresh} setTx={setTx} />
+              <SellCard token={token} data={data} tokens={tokens} refresh={refresh} setTx={setTx} />
             </div>
           </>
         )}

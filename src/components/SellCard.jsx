@@ -11,7 +11,17 @@ import { costUSD, usdToStable, usdToToken, reserveMultiplier, adjustedSellFee } 
 import { formatNumber, formatCountdown } from '../utils/format.js';
 import { parseError } from '../utils/errors.js';
 
-export default function SellCard({ token, data, refresh, setTx }) {
+// Available liquidity for a token = balance the contract holds of it.
+function liqOf(t) {
+  if (t.reserveRaw === undefined || t.reserveRaw === null) return null;
+  try {
+    return formatNumber(Number(formatUnits(t.reserveRaw, t.decimals)), 2);
+  } catch {
+    return null;
+  }
+}
+
+export default function SellCard({ token, data, tokens = [], refresh, setTx }) {
   const { signer, isConnected, connect, wrongNetwork } = useWallet();
   const [amount, setAmount] = useState('');
   const [returnToken, setReturnToken] = useState(null);
@@ -141,6 +151,22 @@ export default function SellCard({ token, data, refresh, setTx }) {
         <span>Estimated return</span>
         <span className="preview-value gold">
           {previewing ? 'Calculating…' : returnToken !== null ? `${formatNumber(returnToken, 2)} ${token.symbol}` : '—'}
+        </span>
+      </div>
+
+      {/* Real-time liquidity available to receive, per token */}
+      <div className="sell-liq">
+        <span className="sell-liq-label">Available to receive</span>
+        <span className="liq-chips">
+          {tokens.map((t) => {
+            const liq = liqOf(t);
+            const hasLiq = liq !== null && Number(t.reserveRaw) > 0;
+            return (
+              <span key={t.address} className={`liq-chip ${hasLiq ? 'liq-on' : 'liq-off'}`}>
+                {t.symbol}: <strong>{liq !== null ? liq : '—'}</strong>
+              </span>
+            );
+          })}
         </span>
       </div>
 
