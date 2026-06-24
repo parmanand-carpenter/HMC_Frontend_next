@@ -95,7 +95,9 @@ export default function AdminPanel() {
   };
   const updateCooldown = () => {
     if (cooldown === '') return;
-    run('Updating cooldown', () => hmcWrite().setCooldownPeriod(BigInt(cooldown)));
+    // Admin enters hours; the contract stores seconds.
+    const seconds = BigInt(Math.round(Number(cooldown) * 3600));
+    run('Updating cooldown', () => hmcWrite().setCooldownPeriod(seconds));
     setCooldown('');
   };
   const updateMaxBuyPerTx = () => {
@@ -242,8 +244,8 @@ export default function AdminPanel() {
             Update Daily Limit
           </button>
           <div className="input-row">
-            <input className="amount-input" type="number" placeholder="Cooldown (seconds, e.g. 28800 = 8h)" value={cooldown} onChange={(e) => setCooldown(e.target.value)} />
-            <span className="input-suffix">sec</span>
+            <input className="amount-input" type="number" placeholder="Cooldown (hours, e.g. 8)" value={cooldown} onChange={(e) => setCooldown(e.target.value)} />
+            <span className="input-suffix">hrs</span>
           </div>
           <button className="btn btn-outline btn-block" disabled={busy || cooldown === ''} onClick={updateCooldown}>
             Update Cooldown
