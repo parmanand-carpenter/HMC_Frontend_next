@@ -8,7 +8,7 @@ import ConnectionToast from './ConnectionToast.jsx';
 export default function Layout({ children }) {
   const router = useRouter();
 
-  // Scroll to top on route change.
+  // Scroll to top on route changes.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [router.pathname]);
