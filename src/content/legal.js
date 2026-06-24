@@ -52,6 +52,6 @@ export const LEGAL = {
   },
 };
 
-export const CONTACT_EMAIL = 'halfcoinss@gmail.com';
+export const CONTACT_EMAIL ='support@halfmillioncoins.com';
 export const COPYRIGHT =
   '© 2026 Half Million Coins. All rights reserved. Unauthorized reproduction prohibited.';
