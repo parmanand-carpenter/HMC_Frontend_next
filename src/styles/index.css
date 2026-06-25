@@ -361,6 +361,27 @@ p { margin: 0; line-height: 1.65; color: var(--text-dim); }
 .settings-label { color: var(--muted); font-size: 0.85rem; }
 .settings-value { color: var(--gold-2); font-size: 0.9rem; }
 
+/* Transaction history */
+.tx-history { margin-top: 22px; padding: 18px 22px; }
+.tx-history-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.tx-history-head h3 { margin: 0; font-size: 1.05rem; }
+.tx-history-all { color: var(--gold-2); font-size: 0.82rem; }
+.tx-history-empty { font-size: 0.88rem; }
+.tx-list { list-style: none; margin: 0; padding: 0; }
+.tx-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.12); font-size: 0.88rem;
+}
+.tx-row:last-child { border-bottom: none; }
+.tx-type {
+  font-weight: 700; font-size: 0.72rem; padding: 2px 9px; border-radius: 999px; text-transform: uppercase;
+}
+.tx-type.tx-buy { color: #39d98a; border: 1px solid rgba(57,217,138,0.4); }
+.tx-type.tx-sell { color: #f5a623; border: 1px solid rgba(245,166,35,0.4); }
+.tx-amount { color: var(--text, #ece7f2); flex: 1; }
+.tx-time { color: var(--muted); font-size: 0.8rem; }
+.tx-link { color: var(--gold-2); }
+
 /* Per-token sell liquidity ("available to receive") */
 .settings-liq-row { flex-wrap: wrap; }
 .sell-liq { margin: 4px 0 14px; }

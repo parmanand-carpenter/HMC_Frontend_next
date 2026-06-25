@@ -6,8 +6,9 @@ import { useState, useEffect } from 'react';
 import { Contract, parseUnits, formatUnits } from 'ethers';
 import { useWallet } from '../context/WalletContext.jsx';
 import { ABIS, HMC_ADDRESS, HMC_DECIMALS, SLIPPAGE_PERCENT } from '../config/contracts.js';
-import { getReadProvider } from '../utils/contracts.js';
+import { getReadProvider, waitForTx } from '../utils/contracts.js';
 import { costUSD, usdToStable, usdToToken, reserveMultiplier, adjustedSellFee } from '../utils/bondingCurve.js';
+import { addTxHistory } from '../utils/txHistory.js';
 import { formatNumber, formatCountdown } from '../utils/format.js';
 import { parseError } from '../utils/errors.js';
 
@@ -22,7 +23,7 @@ function liqOf(t) {
 }
 
 export default function SellCard({ token, data, tokens = [], refresh, setTx }) {
-  const { signer, isConnected, connect, wrongNetwork } = useWallet();
+  const { signer, account, isConnected, connect, wrongNetwork } = useWallet();
   const [amount, setAmount] = useState('');
   const [returnToken, setReturnToken] = useState(null);
   const [payoutWei, setPayoutWei] = useState(0n);
@@ -114,8 +115,9 @@ export default function SellCard({ token, data, tokens = [], refresh, setTx }) {
       setTx({ status: 'pending', message: `Selling ${amount} HMC…` });
       const sellTx = await hmc.sell(amountWei, token.address, minReceive);
       setTx({ status: 'pending', hash: sellTx.hash, message: 'Waiting for confirmation…' });
-      await sellTx.wait();
+      await waitForTx(sellTx.hash);
 
+      addTxHistory(account, { type: 'Sell', hmc: amount, token: token.symbol, hash: sellTx.hash });
       setTx({ status: 'success', hash: sellTx.hash, message: `You sold ${amount} HMC.` });
       setAmount('');
       setReturnToken(null);

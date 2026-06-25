@@ -5,13 +5,14 @@ import { useState, useEffect } from 'react';
 import { Contract, parseUnits, formatUnits } from 'ethers';
 import { useWallet } from '../context/WalletContext.jsx';
 import { ABIS, HMC_ADDRESS, HMC_DECIMALS, SLIPPAGE_PERCENT } from '../config/contracts.js';
-import { getReadProvider } from '../utils/contracts.js';
+import { getReadProvider, waitForTx } from '../utils/contracts.js';
 import { costUSD, usdToStable, usdToToken } from '../utils/bondingCurve.js';
+import { addTxHistory } from '../utils/txHistory.js';
 import { formatNumber } from '../utils/format.js';
 import { parseError } from '../utils/errors.js';
 
 export default function BuyCard({ token, data, refresh, setTx }) {
-  const { signer, isConnected, connect, wrongNetwork } = useWallet();
+  const { signer, account, isConnected, connect, wrongNetwork } = useWallet();
   const [amount, setAmount] = useState('');
   const [costToken, setCostToken] = useState(null); // human number in token units
   const [costWei, setCostWei] = useState(0n);
@@ -93,15 +94,16 @@ export default function BuyCard({ token, data, refresh, setTx }) {
       if (data.userAllowance < maxSpend) {
         setTx({ status: 'pending', message: `Approving ${token.symbol} spending…` });
         const approveTx = await tokenContract.approve(HMC_ADDRESS, maxSpend);
-        await approveTx.wait();
+        await waitForTx(approveTx.hash);
       }
 
       // 2) Buy
       setTx({ status: 'pending', message: `Buying ${amount} HMC…` });
       const buyTx = await hmc.buy(amountWei, token.address, maxSpend);
       setTx({ status: 'pending', hash: buyTx.hash, message: 'Waiting for confirmation…' });
-      await buyTx.wait();
+      await waitForTx(buyTx.hash);
 
+      addTxHistory(account, { type: 'Buy', hmc: amount, token: token.symbol, hash: buyTx.hash });
       setTx({ status: 'success', hash: buyTx.hash, message: `You bought ${amount} HMC.` });
       setAmount('');
       setCostToken(null);

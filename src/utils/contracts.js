@@ -24,6 +24,16 @@ export function getReadProvider() {
   return rpcProvider;
 }
 
+// Wait for a transaction to confirm using our reliable RPC (Alchemy), NOT the
+// wallet's provider. On mobile WalletConnect the wallet's provider is slow/
+// flaky at reporting receipts, which leaves the UI stuck on "pending" even
+// after the user has paid. Polling our own RPC confirms reliably and fast.
+export async function waitForTx(hash, confirmations = 1, timeoutMs = 180000) {
+  const p = getReadProvider();
+  if (!p) return null;
+  return p.waitForTransaction(hash, confirmations, timeoutMs);
+}
+
 export function getHmcContract(runner) {
   if (!runner) return null;
   return new Contract(HMC_ADDRESS, ABIS.HMC, runner);

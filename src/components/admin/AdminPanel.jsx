@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Contract, parseUnits, formatUnits } from 'ethers';
 import { useWallet } from '../../context/WalletContext.jsx';
 import { useContractData } from '../../hooks/useContractData.js';
+import { waitForTx } from '../../utils/contracts.js';
 import {
   ABIS,
   HMC_ADDRESS,
@@ -48,7 +49,7 @@ export default function AdminPanel() {
       setStatus({ type: 'pending', msg: `${label}…` });
       const tx = await fn();
       setStatus({ type: 'pending', msg: 'Waiting for confirmation…', hash: tx.hash });
-      await tx.wait();
+      await waitForTx(tx.hash);
       setStatus({ type: 'success', msg: `${label} — done.`, hash: tx.hash });
       refresh();
     } catch (e) {

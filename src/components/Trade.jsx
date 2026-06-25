@@ -7,6 +7,7 @@ import Settings from './Settings.jsx';
 import Dashboard from './Dashboard.jsx';
 import BuyCard from './BuyCard.jsx';
 import SellCard from './SellCard.jsx';
+import TransactionHistory from './TransactionHistory.jsx';
 import TransactionStatus from './TransactionStatus.jsx';
 import AbiNotice from './AbiNotice.jsx';
 import { useWallet } from '../context/WalletContext.jsx';
@@ -58,6 +59,8 @@ export default function Trade() {
               <BuyCard token={token} data={data} refresh={refresh} setTx={setTx} />
               <SellCard token={token} data={data} tokens={tokens} refresh={refresh} setTx={setTx} />
             </div>
+
+            <TransactionHistory />
           </>
         )}
       </div>
